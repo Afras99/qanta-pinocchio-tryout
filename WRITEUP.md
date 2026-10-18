@@ -17,7 +17,7 @@ I asked a small chatbot (Qwen2.5-3B) 500 quiz-bowl questions from QANTA, and it 
 ## Results
 
 **1. Does Pinocchio's confidence separate right answers from wrong ones? Yes, fairly well.**
-Right answers got an average confidence of 0.51, wrong answers 0.27. Splitting at 0.5: the 200 answers scored 0.5 or higher were right **84.5%** of the time, and the other 300 only **52%**. As one number, AUROC is **0.75** (95% interval 0.70 to 0.79): pick one right and one wrong answer at random, and the right one has the higher score about 75% of the time (a coin flip would be 50%).
+Right answers got an average confidence of 0.51, wrong answers 0.27. Splitting at 0.5: the 200 answers scored 0.5 or higher were right **84.5%** of the time, and the other 300 only **52%**. As one number (called AUROC): take one right and one wrong answer; about **75%** of the time Pinocchio gave the right one the higher score (AUROC 0.75; with only 500 questions, the true value is likely between 0.70 and 0.79).
 
 **2. So what if we skip the doubtful questions?**
 Instead of answering all 500 questions, answer only the ones Pinocchio is most confident about. Accuracy goes up as we answer fewer:
