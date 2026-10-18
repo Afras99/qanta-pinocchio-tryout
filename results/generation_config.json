@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen2.5-3B-Instruct",
+  "system": "You are an expert quiz bowl player.",
+  "prompt_template": "Answer the following quiz bowl question. Respond with ONLY the short answer (an entity or title, a few words at most), no explanation.\n\nQuestion: {question}\n\nAnswer:",
+  "generation": {
+    "do_sample": false,
+    "max_new_tokens": 24
+  },
+  "dtype": "float16",
+  "device": "mps"
+}

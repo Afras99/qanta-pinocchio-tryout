@@ -1,0 +1,107 @@
+{
+  "ece": {
+    "value": 0.2328816683869809,
+    "ci95": [
+      0.1970162874976173,
+      0.27101444585882123
+    ]
+  },
+  "abstention_gain_over_baseline": {
+    "0.8": {
+      "value": 0.07750000000000001,
+      "ci95": [
+        0.05398749999999994,
+        0.09551249999999996
+      ]
+    },
+    "0.6": {
+      "value": 0.15666666666666662,
+      "ci95": [
+        0.12,
+        0.18666666666666665
+      ]
+    },
+    "0.4": {
+      "value": 0.19499999999999995,
+      "ci95": [
+        0.14400000000000002,
+        0.241
+      ]
+    }
+  },
+  "strict_labels": {
+    "accuracy": 0.522,
+    "auroc": 0.691530803635839,
+    "auroc_ci95": [
+      0.6452843803022392,
+      0.7390383237438081
+    ],
+    "ece": 0.15457281213812532
+  },
+  "trivial_baselines_auroc": {
+    "answer_char_len (neg)": 0.5435868131868131,
+    "answer_word_len (neg)": 0.5373978021978023,
+    "question_char_len": 0.4072967032967033,
+    "answer_in_question": 0.45318681318681314
+  },
+  "pinocchio_auroc": 0.748465934065934,
+  "pinocchio_vs_answer_len_corr": -0.23235502299672564,
+  "answer_match_rate_logprob_run": 1.0,
+  "logprob_baselines": {
+    "mean_logprob": {
+      "auroc": 0.8383999999999998,
+      "ci95": [
+        0.8019314209414204,
+        0.8728086900900573
+      ]
+    },
+    "sum_logprob": {
+      "auroc": 0.8417406593406593,
+      "ci95": [
+        0.8045805389753246,
+        0.8759547787924771
+      ]
+    },
+    "first_logprob": {
+      "auroc": 0.7668043956043955,
+      "ci95": [
+        0.7259323402095511,
+        0.8081425285837316
+      ]
+    },
+    "abstention_acc_at_40pct_coverage": {
+      "pinocchio": 0.845,
+      "mean_logprob": 0.87
+    }
+  },
+  "paired_auroc_diff_logprob_minus_pinocchio": {
+    "value": 0.08993406593406583,
+    "ci95": [
+      0.03939497043849005,
+      0.13742331288343554
+    ]
+  },
+  "logprob_vs_pinocchio_spearman": 0.41019659585469326,
+  "shuffled_control": {
+    "n": 200,
+    "mean_p_real": 0.6314580257050693,
+    "mean_p_shuffled": 0.17220732845366002,
+    "frac_shuffled_pairs_actually_correct": 0.0,
+    "auroc_real_vs_shuffled_pairs": 0.899025,
+    "auroc_on_shuffled_pairs": null
+  },
+  "platt_200_splits": {
+    "ece_before_mean": 0.2321526952272281,
+    "ece_after_mean": 0.07358952391322818,
+    "ece_after_ci95": [
+      0.042108493066676994,
+      0.12245067145134458
+    ],
+    "frac_splits_ece_improved": 1.0,
+    "max_abs_auroc_change": 0.0,
+    "coef_range": [
+      0.24184797133109537,
+      1.0503127260630105
+    ]
+  }
+}

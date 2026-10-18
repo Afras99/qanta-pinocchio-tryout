@@ -1,0 +1,33 @@
+{
+  "n": 500,
+  "accuracy": 0.65,
+  "auroc": 0.748465934065934,
+  "auroc_ci95": [
+    0.7036816372191852,
+    0.7921264306899588
+  ],
+  "ece": 0.2328816683869809,
+  "mean_p_correct": 0.4220550989527255,
+  "abstention_table": [
+    {
+      "coverage": 1.0,
+      "pinocchio_acc": 0.65,
+      "random_acc": 0.6500000000000002
+    },
+    {
+      "coverage": 0.8,
+      "pinocchio_acc": 0.7275,
+      "random_acc": 0.65009
+    },
+    {
+      "coverage": 0.6,
+      "pinocchio_acc": 0.8066666666666666,
+      "random_acc": 0.6498066666666666
+    },
+    {
+      "coverage": 0.4,
+      "pinocchio_acc": 0.845,
+      "random_acc": 0.64926
+    }
+  ]
+}

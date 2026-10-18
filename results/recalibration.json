@@ -1,0 +1,13 @@
+{
+  "n_cal": 100,
+  "n_heldout": 400,
+  "platt_coef": 0.5680944016238645,
+  "platt_intercept": 0.8425887468643857,
+  "ece_before": 0.23640621365746484,
+  "ece_after": 0.06374561606430051,
+  "auroc_before": 0.7505013368983957,
+  "auroc_after": 0.7505013368983957,
+  "mean_p_before": 0.4252911978797056,
+  "mean_p_after": 0.6197406220658399,
+  "heldout_accuracy": 0.66
+}
