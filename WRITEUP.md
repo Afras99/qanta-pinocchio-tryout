@@ -46,7 +46,7 @@ We can correct this with a small adjustment (Platt scaling): learn from 100 answ
 *Figure 2. Answers are grouped by Pinocchio's confidence (left to right); the height is how often each group was really right; the dashed line means perfectly honest (numbers = answers in the group). Before, nearly every group sits above the line, so Pinocchio was too low. After, the upper range lines up, but the lowest-score groups are still off (46 answers near 0.35 are right only 26% of the time).*
 
 ## Things to know
-- **The right/wrong marking is imperfect.** On a fresh check of 100 answers, 7 were marked wrongly (4 too generous, 3 too strict), so accuracy is slightly overstated. The checks were done by me with AI help and re-read by a second AI reviewer; no independent human checked them.
-- **Telling Pinocchio the chatbot's name** does not change how well it ranks answers (AUROC 0.75 either way) but changes how low its percentages run (ECE 0.23 with the name, 0.09 without).
-- **A simpler signal ranked answers better:** the chatbot's own internal confidence (AUROC 0.84), though it needs access to the chatbot's internals, which Pinocchio does not.
-- **Limits:** one chatbot, one 500-question sample, dev set only.
+- **Marking answers right or wrong is not perfect.** I checked 100 of the markings (with AI help; no independent person checked them). 7 were wrong: 4 counted an answer as right when it wasn't, and 3 counted a right answer as wrong. So the true accuracy is probably slightly below 65%.
+- **Telling Pinocchio which chatbot wrote the answers** (as I did) changes how low its percentages run, not how well it picks answers. With the name, its percentages were off by about 23 points (ECE 0.23); without it, by about 9 points (ECE 0.09). Which answers it prefers, and so the skipping results, stayed the same either way (AUROC 0.75).
+- **A simpler method did better.** The chatbot's own confidence in its answer picked right answers more reliably (AUROC 0.84 vs 0.75), but it needs access to the chatbot's inner workings, which Pinocchio does not.
+- **Limits:** one chatbot, 500 questions, one data file, so results may differ elsewhere.
