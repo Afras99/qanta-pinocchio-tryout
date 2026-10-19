@@ -1,0 +1,102 @@
+[
+  {
+    "cell": "trusted_and_right",
+    "cell_size": 169,
+    "id": 149715,
+    "gold": "Chimpanzee",
+    "answer_line": "chimpanzees [or Pan troglodytes; prompt on great apes before it is read; prompt on primates before \"primatologist\" is read] ",
+    "model_answer": "Chimpanzees",
+    "p_correct": 0.5706309080123901,
+    "last_sentence": "For 10 points, name these great apes more closely related tohumans than gorillas."
+  },
+  {
+    "cell": "trusted_but_wrong",
+    "cell_size": 31,
+    "id": 148069,
+    "gold": "Joseph_Haydn",
+    "answer_line": "Franz Joseph Haydn",
+    "model_answer": "Mozart",
+    "p_correct": 0.5446978211402893,
+    "last_sentence": "For 10 points, name this composer of symphonies nicknamed Military, Farewell, and Surprise."
+  },
+  {
+    "cell": "doubted_but_right",
+    "cell_size": 156,
+    "id": 147730,
+    "gold": "Comic_Books",
+    "answer_line": " comic books [or comics; or superhero comics; or Golden Age comics; accept graphic novels during the first sentence; do not accept \"comic strips\"]",
+    "model_answer": "Comic books",
+    "p_correct": 0.1074519231915474,
+    "last_sentence": "For 10 points, name these publications that introduced The Spirit andSuperman."
+  },
+  {
+    "cell": "doubted_and_wrong",
+    "cell_size": 144,
+    "id": 147762,
+    "gold": "Science",
+    "answer_line": "science [or scientific method; or scientific research; or scientific revolutions]",
+    "model_answer": "Induction",
+    "p_correct": 0.0664950311183929,
+    "last_sentence": "For 10 points, name this method of academic inquiry championed by Francis Bacon, whose \"revolutions\" might replace ideas such as Newtonian physics with special relativity."
+  },
+  {
+    "cell": "wrong_then_right_path",
+    "cell_size": 292,
+    "id": 148062,
+    "gold": "Blood_Wedding",
+    "answer_line": "Blood Wedding [or Bodas de sangre]",
+    "first_sentence": "A character in this play explains her fear of \"endless bitterness\" while her servant combs her hair.",
+    "steps": {
+      "s1": {
+        "answer": "Lady Macbeth",
+        "correct": 0,
+        "p": 0.3532508313655853
+      },
+      "s2": {
+        "answer": "Annie John",
+        "correct": 0,
+        "p": 0.1056368574500083
+      },
+      "half": {
+        "answer": "The Sun Also Rises",
+        "correct": 0,
+        "p": 0.378665953874588
+      },
+      "full": {
+        "answer": "Blood Wedding",
+        "correct": 1,
+        "p": 0.11829474568367
+      }
+    }
+  },
+  {
+    "cell": "right_then_wrong_path",
+    "cell_size": 5,
+    "id": 144660,
+    "gold": "Dynamo_theory",
+    "answer_line": "core dynamo [or geodynamo; prompt on core convection or the process that creates the planetary magnetic fields or obvious equivalents of that set] ",
+    "first_sentence": "Self-consistent numerical models of this process were created by Kuang and Bloxham, Kageyama and Sato, and\u00c2\u2014most famously\u00c2\u2014Glatzmaier and Roberts.",
+    "steps": {
+      "s1": {
+        "answer": "Geodynamo",
+        "correct": 1,
+        "p": 0.5460588335990906
+      },
+      "s2": {
+        "answer": "Mantle Convection",
+        "correct": 0,
+        "p": 0.5385585427284241
+      },
+      "half": {
+        "answer": "Dynamo Process",
+        "correct": 0,
+        "p": 0.6962767243385315
+      },
+      "full": {
+        "answer": "Dynamo Process",
+        "correct": 0,
+        "p": 0.7252546548843384
+      }
+    }
+  }
+]

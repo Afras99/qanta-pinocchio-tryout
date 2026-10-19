@@ -1,0 +1,32 @@
+id,p_correct,gold,official_answer,model_answer,reading
+151373,0.947,FOUR,four,4,clearly_right_in_other_words
+102225,0.917,Great_Britain,"Great Britain [or Scotland until ""Creativity"" is read and prompt thereafter; pro",UK,clearly_right_in_other_words
+147655,0.829,Pullman_Palace_Car_Company,Pullman Palace Car Company,Pullman Company,borderline
+147599,0.822,RNA_splicing,RNA splicing [or splice; or alternative splicing; prompt on pre-messenger RNA pr,Spliceosome,real_mistake
+150471,0.794,American_National_Red_Cross,American National Red Cross [prompt on Red Cross],American Red Cross,clearly_right_in_other_words
+102362,0.783,Bodhidharma,Bodhidharma,Siddhartha Gautama,real_mistake
+147592,0.779,CORONA,corona [prompt on the Sun's atmosphere] ,Chromosphere,real_mistake
+147032,0.769,Italian_unification,Italian unification [or unifying Italy; or Italian independence; or Risorgimento,Unification of Italy,clearly_right_in_other_words
+148045,0.762,Quantum_mechanical_tunneling,quantum mechanical tunneling,Quantum tunneling,clearly_right_in_other_words
+102183,0.759,Jakob_Bohme,Jakob Bohme [or Jakob Boehme; or Jacob Behmen],Meister Eckhart,real_mistake
+102058,0.758,Sugars,"sugars [or carbohydrates; or mono-, poly-, di-, or oligo-saccharides; or aldoses",Monosaccharides,real_mistake
+144660,0.725,Dynamo_theory,core dynamo [or geodynamo; prompt on core convection or the process that creates,Dynamo Process,borderline
+145827,0.718,Lac_operon,lac operon [or lactose operon; prompt on operon until mentioned],lac,borderline
+141556,0.711,Jim_(Huckleberry_Finn),Jim,Tom Sawyer,real_mistake
+102089,0.704,Azande,Azande [or Zande peoples],Nuer,real_mistake
+151655,0.686,Allergy,allergy [or allergic response; or allergies; accept hypersensitivity or word for,Allergic reactions,clearly_right_in_other_words
+147037,0.636,United_States,United States of America [or U.S.A or America or United States],USA,clearly_right_in_other_words
+144619,0.634,Harper's_Weekly,"Harper's Weekly [prompt on A Journal of Civilization; do not accept ""Harper's Ma",Harper's Magazine,real_mistake
+144780,0.627,Matthew_Arnold,Matthew Arnold,T.S. Eliot,real_mistake
+144778,0.613,An_Essay_Concerning_Human_Understanding,An Essay Concerning Human Understanding ,Essay on Human Understanding,borderline
+141414,0.61,Quebec,Quebec,Ontario,real_mistake
+102370,0.594,James_Alexander_Reed,Reed [or Thomas Bracket Reed; or James Alexander Reed; or Reed v. Reed],Clay,real_mistake
+102010,0.592,Cecil_Day-Lewis,"Cecil Day-Lewis [prompt on ""Nicholas Blake"" until it is read]",Dylan Thomas,real_mistake
+144774,0.586,2015_FIFA_scandal,2015 FIFA scandal [or 2015 Federation Internationale de Football Association sca,FIFA,borderline
+141424,0.584,Mathematics,"mathematics [or Principia Mathematica; prompt on ""science""]",Set Theory,real_mistake
+101954,0.559,The_Great_Chain_of_Being,The Great Chain of Being,Arthur Lovejoy,real_mistake
+148840,0.552,Felix_Mendelssohn,Felix Mendelssohn [Jakob Ludwig Felix Mendelssohn Bartholdy,Carl Nielsen,real_mistake
+102022,0.549,Kt,kT [or kBT; or the product of Boltzmann's constant and temperature; or obvious e,Boltzmann constant,real_mistake
+148069,0.545,Joseph_Haydn,Franz Joseph Haydn,Mozart,real_mistake
+144788,0.54,Julio_Cortázar,Julio Cortazar [or Julio Florencio Cortazar],Horacio Quiroga,real_mistake
+93235,0.537,Feynman_diagram,Feynman diagrams,QCD Diagrams,real_mistake

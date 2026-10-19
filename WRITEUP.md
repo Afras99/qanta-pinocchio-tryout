@@ -1,52 +1,62 @@
 # Pinocchio on QANTA: does its confidence help skip wrong answers?
 
 ## Summary
-I asked a small chatbot (Qwen2.5-3B) 500 quiz-bowl questions from QANTA, and it got **65% right**. Pinocchio then looked at each question and answer and gave a confidence score, without ever seeing the correct answer.
+I asked a small chatbot (Qwen2.5-3B) 500 quiz-bowl questions from QANTA, and it got **65% right**. Pinocchio then looked at each question and answer and gave a confidence score, without ever seeing the correct answer. I then repeated this with only the first part of each question, to see how much of the question Pinocchio needs.
 
-- **Its confidence is useful.** Answers with higher scores really were right more often. Answering only the 40% of questions Pinocchio was most confident about raised accuracy from 65% to **84.5%**.
-- **Its percentages run low.** On average it said 42% while 65% of answers were right. A quick fix using 100 labelled answers (Platt scaling) mostly corrected this, and did not change which answers it prefers.
+- **On full questions its confidence is useful.** Answering only the 40% of questions Pinocchio was most confident about raised accuracy from 65% to **84.5%**.
+- **It needs enough of the question.** After only the first sentence the chatbot is right just 8% of the time and Pinocchio can barely tell right from wrong (AUROC 0.56, close to a coin flip). Its ability grows with more text, to 0.75 on the full question.
+- **Its percentages are off in both directions.** On full questions they run low (42% said, 65% right); on first sentences they run high (27% said, 8% right). A quick fix using 100 labelled answers (Platt scaling) mostly corrects the full-question case.
 - **What this tests:** Pinocchio as a confidence checker for another model's answers, not how well the chatbot knows what it knows.
 
 ## Setup
-- **Data:** `qanta.dev.2021.12.20.json`; 500 random questions (seed 0), full question text.
-- **Chatbot:** `Qwen/Qwen2.5-3B-Instruct`, fixed settings, short answers. System message: "You are an expert quiz bowl player." User message: "Answer the following quiz bowl question. Respond with ONLY the short answer (an entity or title, a few words at most), no explanation." followed by "Question: {question}" and "Answer:".
-- **Marking answers right or wrong:** text matching against the official answer and its listed alternatives (ignoring case, punctuation, accents and plurals; allowing small spelling differences and a shared whole-word part of at least 5 characters). 65.0% right.
-- **Pinocchio:** `pinocchio-uq` 0.1.1, told which chatbot wrote each answer.
-- **Code:** https://github.com/Afras99/qanta-pinocchio-tryout
+- **Data:** `qanta.dev.2021.12.20.json`; 500 random questions (seed 0). **Chatbot:** `Qwen/Qwen2.5-3B-Instruct`, fixed settings, short answers (prompt in `src/generate_answers.py`). **Pinocchio:** `pinocchio-uq` 0.1.1, told which chatbot wrote each answer. **Code:** https://github.com/Afras99/qanta-pinocchio-tryout
+- **How much of the question is seen:** the question cut at QANTA's own sentence boundaries (4 to 11 sentences, 6.5 on average): the **first sentence** (17% of the text on average), the **first two** (34%), the **first half** (56%) and the **full question**. The chatbot and Pinocchio both saw only the cut text; settings were otherwise identical. QANTA's character offsets drift by a few characters on 45 questions with garbled text, so I moved each cut to the true sentence end.
+- **Marking answers right or wrong:** text matching against the official answer and listed alternatives, tolerating case, punctuation, plurals and small spelling differences. Same rules at every level.
 
-## Results
+## Results on full questions
+**1. Does confidence separate right answers from wrong ones? Yes, fairly well.** Right answers averaged 0.51, wrong answers 0.26. The 200 answers scored 0.5 or higher were right **84.5%** of the time, the other 300 only **52%**. As one number (AUROC): about **75%** of the time Pinocchio gave a right answer a higher score than a wrong one (likely range 0.70 to 0.79 with 500 questions).
 
-**1. Does Pinocchio's confidence separate right answers from wrong ones? Yes, fairly well.**
-Right answers got an average confidence of 0.51, wrong answers 0.27. Splitting at 0.5: the 200 answers scored 0.5 or higher were right **84.5%** of the time, and the other 300 only **52%**. As one number (called AUROC): take one right and one wrong answer; about **75%** of the time Pinocchio gave the right one the higher score (AUROC 0.75; with only 500 questions, the true value is likely between 0.70 and 0.79).
+**2. Skipping the doubtful questions** (Figure 1): accuracy is 72.8% on the 400 most-trusted answers, 80.7% on 300 and **84.5%** on 200, against 65% for random picks; the price is answering fewer questions.
 
-**2. So what if we skip the doubtful questions?**
-Instead of answering all 500 questions, answer only the ones Pinocchio is most confident about. Accuracy goes up as we answer fewer:
+**3. Are its percentages honest? No, on full questions they run low.** It averaged 42% but 65% were right: off by about 23 points (ECE 0.23; 0 is perfectly honest). Platt scaling (learn from 100 answers with known truth, test on the other 400) cuts this to **0.064** and leaves the ranking untouched (AUROC 0.75 before and after). The lowest-score groups stay off after the fix (Figure 3).
 
-![Answering fewer questions gets more of them right](figures/abstention_curve.png)
+<div class="figs">
+<figure><img src="figures/abstention_curve.png"><figcaption><b>Figure 1.</b> Moving left, we answer only what Pinocchio trusts most; a larger share is right. Random skipping (orange) does nothing.</figcaption></figure>
+<figure><img src="figures/prefix_effect.png"><figcaption><b>Figure 2.</b> Everything as more of the question is seen. Accuracy and Pinocchio's skill both rise; its average confidence barely moves until the full question.</figcaption></figure>
+</div>
 
-*Figure 1. Moving left, we answer only the questions Pinocchio trusts most, and a larger share of those answers are right. Skipping questions at random (orange) does nothing.*
+## How much of the question is seen
+| Text seen | Chatbot right | Pinocchio AUROC (likely range) | Pinocchio's average confidence | Right on the 40% Pinocchio trusts most |
+|---|---|---|---|---|
+| First sentence (17%) | 7.6% | 0.56 (0.46 to 0.66) | 0.27 | 9.0% |
+| First two sentences (34%) | 17.2% | 0.60 (0.53 to 0.67) | 0.28 | 21.5% |
+| First half (56%) | 25.2% | 0.67 (0.61 to 0.72) | 0.29 | 35.0% |
+| Full question (100%) | 65.0% | 0.75 (0.70 to 0.79) | 0.42 | 84.5% |
 
-| Questions we answer | Right (Pinocchio picks them) | Right (picked at random) |
-|---|---|---|
-| All 500 (100%) | 65.0% | 65.0% |
-| 400 (80%) | 72.8% | 65.0% |
-| 300 (60%) | 80.7% | 65.0% |
-| 200 (40%) | 84.5% | 64.9% |
+- **Most of the chatbot's accuracy comes from the late, easier clues:** 25% after half the text, 65% after all of it. Its answer after the first sentence matches its final answer on only 4% of questions (22% after half).
+- **From first sentence to full question:** 292 of 500 went from wrong to right, 33 were right both times, 170 were wrong both times, and only 5 went from right to wrong. Pinocchio's confidence followed this: on the 292 that got fixed it rose from 0.27 to 0.50; on the 170 that never did it stayed flat (0.24 to 0.26).
+- **With little text it cannot help.** At the first sentence only 38 answers are right, its scores barely separate them (the range includes 0.5), and skipping its least-trusted answers barely helps (9.0% right vs 7.6% overall). Its average confidence (27%) is far above the real hit rate (8%): only 91 answers score 0.5 or more, and just 13% of those are right. That is over-confidence, the opposite of the full-question case.
 
-The price is answering fewer questions.
+## Examples
+One question per group, picked by a fixed random seed (not hand-chosen). "Trusted" means a score of 0.5 or more.
 
-**3. Are its percentages honest? No, they run too low.**
-Pinocchio's confidence averaged 42%, but 65% of the answers were actually right. Its claimed percentages are off from the real hit rate by about 23 points on average (this is the "ECE", 0.23; 0 would be perfectly honest).
+| Group (of 500) | Last clue of the question | Right answer | Chatbot said | Score | Verdict |
+|---|---|---|---|---|---|
+| Trusted, right (169) | "...name these great apes more closely related to humans than gorillas." | Chimpanzee | Chimpanzees | 0.57 | Works |
+| Trusted, wrong (31) | "...composer of symphonies nicknamed Military, Farewell, and Surprise." | Haydn | Mozart | 0.54 | Fails: trusts a confident factual mistake |
+| Doubted, right (156) | "...publications that introduced The Spirit and Superman." | Comic books | Comic books | 0.11 | Fails: a right answer would be skipped |
+| Doubted, wrong (144) | "...method of academic inquiry championed by Francis Bacon..." | Science | Induction | 0.07 | Works |
 
-## Fixing the percentages (Platt scaling)
-We can correct this with a small adjustment (Platt scaling): learn from 100 answers where we know the truth how to nudge Pinocchio's numbers, then test on the other 400. The gap shrinks from 0.236 to **0.064**. The ranking is untouched (AUROC 0.75 before and after), because the adjustment never reorders answers, so which questions get skipped stays the same.
+**Changing as more is seen.** *Blood Wedding:* from the first sentence ("A character in this play explains her fear of 'endless bitterness' while her servant combs her hair.") the chatbot guessed Lady Macbeth (score 0.35), then Annie John (0.11), then The Sun Also Rises (0.38), and with the full question it got **Blood Wedding right, but Pinocchio gave it only 0.12**: more confident in two wrong guesses than in the final right one. *Endoplasmic reticulum* went the other way: right from the first sentence (0.76), but wrong (Lysosome) with the full question, where Pinocchio's score fell to 0.17, as it should. Only 5 questions go right-then-wrong; this is the clearest (the random draw, Dynamo theory, is a borderline marking case).
 
-![Before and after Platt scaling](figures/reliability_platt.png)
+**Patterns.**
+- **Long answers get low scores.** Average score is 0.48 for one-word answers but 0.23 for answers of four or more words (only 25 answers), while accuracy only falls from 68% to 60% (a gap within noise). A right answer such as *Rosencrantz and Guildenstern Are Dead* got 0.02. (Length or difficulty: not tested.)
+- **Some "trusted but wrong" answers are a marking problem.** I read all 31 (me with AI help, two AI reviewers agreeing within a couple of rows, no independent human; labels in `results/trusted_wrong_review.csv`): 7 were clearly right in different words ("4" for "four", "UK" for "Great Britain", "USA", "Unification of Italy", "Quantum tunneling", "Allergic reactions", "American Red Cross") and 5 more were borderline. The other 19 were real confident mistakes, usually a closely related person or place (Dylan Thomas for Cecil Day-Lewis, Ontario for Quebec, Tom Sawyer for Jim). Counting the 7, accuracy on the top 200 would be about 88% instead of 84.5%. All headline numbers keep the original marking, for comparability.
 
-*Figure 2. Answers are grouped by Pinocchio's confidence (left to right); the height is how often each group was really right; the dashed line means perfectly honest (numbers = answers in the group). Before, nearly every group sits above the line, so Pinocchio was too low. After, the upper range lines up, but the lowest-score groups are still off (46 answers near 0.35 are right only 26% of the time).*
+<div class="figs one"><figure><img src="figures/reliability_platt.png"><figcaption><b>Figure 3.</b> Before and after Platt scaling (full questions). Answers grouped by Pinocchio's score; height is how often each group was right; the dashed line is perfectly honest.</figcaption></figure></div>
 
 ## Things to know
-- **Marking answers right or wrong is not perfect.** I checked 100 of the markings (with AI help; no independent person checked them). 7 were wrong: 4 counted an answer as right when it wasn't, and 3 counted a right answer as wrong. So the true accuracy is probably slightly below 65%.
-- **Telling Pinocchio which chatbot wrote the answers** (as I did) changes how low its percentages run, not how well it picks answers. With the name, its percentages were off by about 23 points (ECE 0.23); without it, by about 9 points (ECE 0.09). Which answers it prefers, and so the skipping results, stayed the same either way (AUROC 0.75).
-- **A simpler method did better.** The chatbot's own confidence in its answer picked right answers more reliably (AUROC 0.84 vs 0.75), but it needs access to the chatbot's inner workings, which Pinocchio does not.
-- **Limits:** one chatbot, 500 questions, one data file, so results may differ elsewhere.
+- **Marking is not perfect.** An earlier check of 100 markings (AI-assisted, no independent person) found 7 wrong (4 too generous, 3 too strict), so true accuracy may differ a few points from 65%.
+- **Telling Pinocchio which chatbot wrote the answers** (as in all runs here) changes how far off its percentages are (about 23 points with the name, 9 without), not which answers it prefers (AUROC 0.75 either way).
+- **A simpler method did better:** the chatbot's own confidence picked right answers more reliably (AUROC 0.84 vs 0.75) but needs access to its inner workings.
+- **Limits:** one chatbot, 500 questions, one data file; the first-sentence results rest on only 38 right answers.

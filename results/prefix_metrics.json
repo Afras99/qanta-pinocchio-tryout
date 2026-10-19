@@ -1,0 +1,97 @@
+{
+  "s1": {
+    "n": 500,
+    "mean_frac_chars": 0.17361450386788516,
+    "mean_sentences": 1.0,
+    "accuracy": 0.076,
+    "mean_p": 0.2670706919282675,
+    "mean_p_right": 0.32821403262450505,
+    "mean_p_wrong": 0.2620415859835553,
+    "auroc": 0.5598086124401913,
+    "auroc_ci95": [
+      0.4565932275149928,
+      0.6639270958816443
+    ],
+    "ece": 0.1939381626993418,
+    "acc_at_40pct": 0.09,
+    "acc_at_60pct": 0.07666666666666666,
+    "share_unchanged_answer_vs_full": 0.04
+  },
+  "s2": {
+    "n": 500,
+    "mean_frac_chars": 0.3358393302777611,
+    "mean_sentences": 2.0,
+    "accuracy": 0.172,
+    "mean_p": 0.2836002404987812,
+    "mean_p_right": 0.35645493245575316,
+    "mean_p_wrong": 0.2684661740536131,
+    "auroc": 0.59678687787889,
+    "auroc_ci95": [
+      0.5293267822159541,
+      0.6671928390192482
+    ],
+    "ece": 0.14104653972387315,
+    "acc_at_40pct": 0.215,
+    "acc_at_60pct": 0.2,
+    "share_unchanged_answer_vs_full": 0.128
+  },
+  "half": {
+    "n": 500,
+    "mean_frac_chars": 0.5584544549054579,
+    "mean_sentences": 3.498,
+    "accuracy": 0.252,
+    "mean_p": 0.2948631867561489,
+    "mean_p_right": 0.40206233462289215,
+    "mean_p_wrong": 0.2587479658170857,
+    "auroc": 0.6690433749257279,
+    "auroc_ci95": [
+      0.6129220979730475,
+      0.7227686661554964
+    ],
+    "ece": 0.10903691836260258,
+    "acc_at_40pct": 0.35,
+    "acc_at_60pct": 0.32666666666666666,
+    "share_unchanged_answer_vs_full": 0.222
+  },
+  "full": {
+    "n": 500,
+    "mean_frac_chars": 0.9998711164046777,
+    "mean_sentences": 6.512,
+    "accuracy": 0.65,
+    "mean_p": 0.4220550989527255,
+    "mean_p_right": 0.5068595476706441,
+    "mean_p_wrong": 0.2645611227623054,
+    "auroc": 0.748465934065934,
+    "auroc_ci95": [
+      0.7033199118813307,
+      0.7898185702403306
+    ],
+    "ece": 0.2328816683869809,
+    "acc_at_40pct": 0.845,
+    "acc_at_60pct": 0.8066666666666666,
+    "share_unchanged_answer_vs_full": 1.0
+  },
+  "transitions_s1_to_full": {
+    "right_both": {
+      "n": 33,
+      "mean_p_s1": 0.3158880491938555,
+      "mean_p_full": 0.5588411203388012
+    },
+    "wrong_then_right": {
+      "n": 292,
+      "mean_p_s1": 0.2743166020229357,
+      "mean_p_full": 0.5009849178828044
+    },
+    "right_then_wrong": {
+      "n": 5,
+      "mean_p_s1": 0.4095655232667923,
+      "mean_p_full": 0.46267745494842527
+    },
+    "wrong_both": {
+      "n": 170,
+      "mean_p_s1": 0.24095744078650194,
+      "mean_p_full": 0.25873417181565483
+    }
+  },
+  "share_questions_confidence_higher_at_full_than_s1": 0.656
+}
