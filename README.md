@@ -9,7 +9,7 @@ Tryout project: test whether [Pinocchio](https://github.com/khayes95/pinocchio) 
 src/        pipeline code (one script per stage)
 results/    raw outputs: answers, grades, scores, metrics (CSV/JSON)
 figures/    plots used in the writeup
-WRITEUP.md  the report (WRITEUP.pdf is the same report, 2 pages)
+WRITEUP.md  the report (WRITEUP.pdf is the same report, 3 pages)
 ```
 `data/` (the QANTA dev file) is not committed; the command below downloads it.
 
